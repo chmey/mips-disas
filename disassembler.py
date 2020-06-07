@@ -45,7 +45,7 @@ registers = {
 def dis_not_implemented(instruction_bytes):
     global reg_ip
     opcode = get_opcode(instruction_bytes)
-    print("Error! Not implemented opcode ({}) at IP 0x{:x}".format(opcode, reg_ip))
+    print("Error! Not implemented opcode ({:x}) at IP 0x{:x}".format(opcode, reg_ip))
     exit(1)
 
 
@@ -54,47 +54,92 @@ def disassemble_R_type(instruction_bytes):
     """
     TODO: implement here
     """
+    if instruction_bytes == 0:
+        print("nop")
+        return
     function_code = get_function_code(instruction_bytes)
-    pass
+    print(disas_funcodes[function_code])
 
 
 def disassemble_I_type(instruction_bytes):
-    global reg_ip
-    """
-    TODO: implement here
-    """
-    function_code = get_function_code(instruction_bytes)
-    pass
-
-
-def disassemble_J_type(instruction_bytes):
-    global reg_ip
-    """
-    TODO: implement here
-    """
-    function_code = get_function_code(instruction_bytes)
-    pass
+    op = disas_immcodes[get_opcode(instruction_bytes)]
+    print(op)
 
 
 disas_opcodes = {
-    0x0: disassemble_R_type
+    0x0: disassemble_R_type,
+    0x4: disassemble_I_type, # BEQ
+    0x8: disassemble_I_type, # ADDI
+    0x9: disassemble_I_type, # ADDIU
+    0xC: disassemble_I_type, # ANDI
+    0x20: disassemble_I_type, # LB
+    0x23: disassemble_I_type, # LW
+    0xF: disassemble_I_type, # LUI
+    0xD: disassemble_I_type, # ORI
+    0x28: disassemble_I_type, # SB
+    0xA: disassemble_I_type, # SLTI
+    0xB: disassemble_I_type, # SLTIU
+    0x2B: disassemble_I_type, # SW
+    0xE: disassemble_I_type, # XORI
+}
+
+disas_immcodes = {
+    0x4: "beq",
+    0x8: "addi",
+    0x9: "addiu",
+    0xC: "andi",
+    0xD: "ori",
+    0xF: "lui",
+    0x20: "lb",
+    0x23: "lw",
+    0x28: "sb",
+    0xA: "slti",
+    0xB: "sltiu",
+    0x2B: "sw",
+    0xE: "xori",
+}
+
+disas_funcodes = {
+    0x0: "sll",
+    0x2: "srl",
+    0x3: "sra",
+    0x4: "sllv",
+    0x6: "srlv",
+    0x20: "add",
+    0x21: "addu",
+    0x22: "sub",
+    0x23: "subu",
+    0x1A: "div",
+    0x1B: "divu",
+    0x24: "and",
+    0x37: "or",
+    0x10: "mfhi",
+    0x12: "mflo",
+    0x18: "mult",
+    0x19: "multu",
+    0x25: "or",
+    0x2A: "slt",
+    0x2B: "sltu",
+    0xC: "syscall",
+    0x26: "xor",
+    0x27: "nor",
 }
 
 
 def get_opcode(instruction_bytes):
     """
-    Returns the MIPS opcode from a 4 byte instruction.
+    Returns the 6-bit MIPS opcode from a 4 byte instruction.
     """
-    op = instruction_bytes & 0b111111
+    op = (instruction_bytes & 0xFC000000) >> (3 * 8 + 2)
     return op
 
 
 def get_function_code(instruction_bytes):
     """
-    TODO: implement here
+    Returns the 6-bit MIPS function code from a 4 byte R-type instruction.
     """
-    pass
-
+    fun = instruction_bytes & 0x3F 
+    return fun
 
 def get_uint32_little_endian(some_bytes):
     return struct.unpack("<I", some_bytes)[0]
