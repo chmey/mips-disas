@@ -58,7 +58,10 @@ def disassemble_R_type(instruction_bytes):
         print("nop")
         return
     function_code = get_function_code(instruction_bytes)
-    print(disas_funcodes[function_code])
+    rs = (instruction_bytes & 0x3E00000) >> 21
+    rt = (instruction_bytes & 0x01F0000) >> 16
+    rd = (instruction_bytes & 0x000F800) >> 11
+    print(f"{disas_funcodes[function_code]} ${registers[rd]}, ${registers[rs]}, ${registers[rt]}")
 
 
 def disassemble_I_type(instruction_bytes):
