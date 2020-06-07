@@ -85,8 +85,19 @@ def disassemble_I_type(instruction_bytes):
         print(f"{op} ${registers[rt]}, ${registers[rs]}, {hex(imm)}")
 
 
+def disassemble_J_type(instruction_bytes):
+    global reg_ip
+    """
+    Disassemble and print a MIPS J type instruction.
+    """
+    addr = (instruction_bytes & 0x3FFFFFFF)
+    op_code = get_opcode(instruction_bytes)
+    print(f"{disas_jmpcodes[op_code]} {hex(addr)}")
+
 disas_opcodes = {
     0x0: disassemble_R_type,
+    0x2: disassemble_J_type,  # JUMP
+    0x3: disassemble_J_type,  # JAL
     0x4: disassemble_I_type, # BEQ
     0x8: disassemble_I_type, # ADDI
     0x9: disassemble_I_type, # ADDIU
@@ -100,6 +111,11 @@ disas_opcodes = {
     0xB: disassemble_I_type, # SLTIU
     0x2B: disassemble_I_type, # SW
     0xE: disassemble_I_type, # XORI
+}
+
+disas_jmpcodes = {
+    0x2: "j",
+    0x3: "jal",
 }
 
 disas_immcodes = {
@@ -124,6 +140,7 @@ disas_funcodes = {
     0x3: "sra",
     0x4: "sllv",
     0x6: "srlv",
+    0x8: "jr",
     0x20: "add",
     0x21: "addu",
     0x22: "sub",
