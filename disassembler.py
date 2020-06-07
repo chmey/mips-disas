@@ -65,8 +65,8 @@ def disassemble_R_type(instruction_bytes):
         shamt = (instruction_bytes & 0x000007C0) >> 6
         print(f"{disas_funcodes[function_code]} ${registers[rd]},${registers[rt]}, {shamt}")
     else:
-    rs = (instruction_bytes & 0x3E00000) >> 21
-    print(f"{disas_funcodes[function_code]} ${registers[rd]}, ${registers[rs]}, ${registers[rt]}")
+        rs = (instruction_bytes & 0x3E00000) >> 21
+        print(f"{disas_funcodes[function_code]} ${registers[rd]}, ${registers[rs]}, ${registers[rt]}")
 
 
 def disassemble_I_type(instruction_bytes):
@@ -131,7 +131,6 @@ disas_funcodes = {
     0x1A: "div",
     0x1B: "divu",
     0x24: "and",
-    0x37: "or",
     0x10: "mfhi",
     0x12: "mflo",
     0x18: "mult",
