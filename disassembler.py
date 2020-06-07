@@ -77,7 +77,7 @@ def disassemble_I_type(instruction_bytes):
     if op_code >= 0x20:
         print(f"{op} ${registers[rt]}, {imm}(${registers[rs]})")
     else:
-        print(f"{op} ${registers[rt]}, {registers[rs]}, {imm}")
+        print(f"{op} ${registers[rt]}, ${registers[rs]}, {hex(imm)}")
 
 
 disas_opcodes = {
