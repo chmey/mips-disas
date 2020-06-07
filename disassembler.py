@@ -52,7 +52,7 @@ def dis_not_implemented(instruction_bytes):
 def disassemble_R_type(instruction_bytes):
     global reg_ip
     """
-    TODO: implement here
+    Disassemble and print a MIPS R type instruction.
     """
     if instruction_bytes == 0:
         print("nop")
@@ -72,7 +72,7 @@ def disassemble_R_type(instruction_bytes):
 def disassemble_I_type(instruction_bytes):
     global reg_ip
     """
-    TODO: implement here
+    Disassemble and print a MIPS I type instruction.
     """
     rs = (instruction_bytes & 0x3E00000) >> 21
     rt = (instruction_bytes & 0x01F0000) >> 16
