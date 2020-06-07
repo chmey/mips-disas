@@ -101,16 +101,16 @@ disas_opcodes = {
     0x4: disassemble_I_type, # BEQ
     0x8: disassemble_I_type, # ADDI
     0x9: disassemble_I_type, # ADDIU
-    0xC: disassemble_I_type, # ANDI
-    0x20: disassemble_I_type, # LB
-    0x23: disassemble_I_type, # LW
-    0xF: disassemble_I_type, # LUI
-    0xD: disassemble_I_type, # ORI
-    0x28: disassemble_I_type, # SB
     0xA: disassemble_I_type, # SLTI
     0xB: disassemble_I_type, # SLTIU
-    0x2B: disassemble_I_type, # SW
+    0xC: disassemble_I_type, # ANDI
+    0xD: disassemble_I_type, # ORI
     0xE: disassemble_I_type, # XORI
+    0xF: disassemble_I_type, # LUI
+    0x20: disassemble_I_type, # LB
+    0x23: disassemble_I_type, # LW
+    0x28: disassemble_I_type, # SB
+    0x2B: disassemble_I_type, # SW
 }
 
 disas_jmpcodes = {
@@ -122,16 +122,16 @@ disas_immcodes = {
     0x4: "beq",
     0x8: "addi",
     0x9: "addiu",
+    0xA: "slti",
+    0xB: "sltiu",
     0xC: "andi",
     0xD: "ori",
+    0xE: "xori",
     0xF: "lui",
     0x20: "lb",
     0x23: "lw",
     0x28: "sb",
-    0xA: "slti",
-    0xB: "sltiu",
     0x2B: "sw",
-    0xE: "xori",
 }
 
 disas_funcodes = {
@@ -141,23 +141,23 @@ disas_funcodes = {
     0x4: "sllv",
     0x6: "srlv",
     0x8: "jr",
-    0x20: "add",
-    0x21: "addu",
-    0x22: "sub",
-    0x23: "subu",
-    0x1A: "div",
-    0x1B: "divu",
-    0x24: "and",
+    0xC: "syscall",
     0x10: "mfhi",
     0x12: "mflo",
     0x18: "mult",
     0x19: "multu",
+    0x1A: "div",
+    0x1B: "divu",
+    0x20: "add",
+    0x21: "addu",
+    0x22: "sub",
+    0x23: "subu",
+    0x24: "and",
     0x25: "or",
-    0x2A: "slt",
-    0x2B: "sltu",
-    0xC: "syscall",
     0x26: "xor",
     0x27: "nor",
+    0x2A: "slt",
+    0x2B: "sltu",
 }
 
 
