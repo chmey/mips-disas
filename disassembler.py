@@ -65,8 +65,19 @@ def disassemble_R_type(instruction_bytes):
 
 
 def disassemble_I_type(instruction_bytes):
-    op = disas_immcodes[get_opcode(instruction_bytes)]
-    print(op)
+    global reg_ip
+    """
+    TODO: implement here
+    """
+    rs = (instruction_bytes & 0x3E00000) >> 21
+    rt = (instruction_bytes & 0x01F0000) >> 16
+    imm = instruction_bytes & 0x0000FFFF
+    op_code = get_opcode(instruction_bytes)
+    op = disas_immcodes[op_code]
+    if op_code >= 0x20:
+        print(f"{op} ${registers[rt]}, {imm}(${registers[rs]})")
+    else:
+        print(f"{op} ${registers[rt]}, {registers[rs]}, {imm}")
 
 
 disas_opcodes = {
