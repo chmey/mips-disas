@@ -58,9 +58,14 @@ def disassemble_R_type(instruction_bytes):
         print("nop")
         return
     function_code = get_function_code(instruction_bytes)
-    rs = (instruction_bytes & 0x3E00000) >> 21
-    rt = (instruction_bytes & 0x01F0000) >> 16
     rd = (instruction_bytes & 0x000F800) >> 11
+    rt = (instruction_bytes & 0x01F0000) >> 16
+    if (function_code < 0x04):
+        # Shifting, utilize shamt
+        shamt = (instruction_bytes & 0x000007C0) >> 6
+        print(f"{disas_funcodes[function_code]} ${registers[rd]},${registers[rt]}, {shamt}")
+    else:
+    rs = (instruction_bytes & 0x3E00000) >> 21
     print(f"{disas_funcodes[function_code]} ${registers[rd]}, ${registers[rs]}, ${registers[rt]}")
 
 
