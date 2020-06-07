@@ -21,3 +21,5 @@ nor $s2, $zero, $s2
 ## MIPS Emulator
 
 Built on top of the disassembler, there is an emulator which starts from a fixed state and emulates the binary. In the end a certain value is computed and printed. This value was needed to pass the class homework.
+
+Only needed operations are implemented. If the emulator encounters a not implemented operation, it will print this incident and exit. This way you can iteratively implement new operations.
