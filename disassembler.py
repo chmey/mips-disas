@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import struct
-import ctypes
 
 reg_ip = 0x0
 entry_addr = 0x0
@@ -94,23 +93,24 @@ def disassemble_J_type(instruction_bytes):
     op_code = get_opcode(instruction_bytes)
     print(f"{disas_jmpcodes[op_code]} {hex(addr)}")
 
+
 disas_opcodes = {
     0x0: disassemble_R_type,
     0x2: disassemble_J_type,  # JUMP
     0x3: disassemble_J_type,  # JAL
-    0x4: disassemble_I_type, # BEQ
-    0x8: disassemble_I_type, # ADDI
-    0x9: disassemble_I_type, # ADDIU
-    0xA: disassemble_I_type, # SLTI
-    0xB: disassemble_I_type, # SLTIU
-    0xC: disassemble_I_type, # ANDI
-    0xD: disassemble_I_type, # ORI
-    0xE: disassemble_I_type, # XORI
-    0xF: disassemble_I_type, # LUI
-    0x20: disassemble_I_type, # LB
-    0x23: disassemble_I_type, # LW
-    0x28: disassemble_I_type, # SB
-    0x2B: disassemble_I_type, # SW
+    0x4: disassemble_I_type,  # BEQ
+    0x8: disassemble_I_type,  # ADDI
+    0x9: disassemble_I_type,  # ADDIU
+    0xA: disassemble_I_type,  # SLTI
+    0xB: disassemble_I_type,  # SLTIU
+    0xC: disassemble_I_type,  # ANDI
+    0xD: disassemble_I_type,  # ORI
+    0xE: disassemble_I_type,  # XORI
+    0xF: disassemble_I_type,  # LUI
+    0x20: disassemble_I_type,  # LB
+    0x23: disassemble_I_type,  # LW
+    0x28: disassemble_I_type,  # SB
+    0x2B: disassemble_I_type,  # SW
 }
 
 disas_jmpcodes = {
@@ -173,8 +173,9 @@ def get_function_code(instruction_bytes):
     """
     Returns the 6-bit MIPS function code from a 4 byte R-type instruction.
     """
-    fun = instruction_bytes & 0x3F 
+    fun = instruction_bytes & 0x3F
     return fun
+
 
 def get_uint32_little_endian(some_bytes):
     return struct.unpack("<I", some_bytes)[0]
