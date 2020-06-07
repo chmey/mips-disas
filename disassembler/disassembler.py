@@ -194,6 +194,6 @@ def exec_loop(data):
         reg_ip += 4
 
 
-code = open("material/mipsel_dump.bin", 'rb').read()
+code = open("mipsel_dump.bin", 'rb').read()
 
 exec_loop(code)
